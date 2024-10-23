@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
 @TeleOp
 public class MecanumTeleOp extends LinearOpMode {
 
@@ -16,6 +15,7 @@ public class MecanumTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         DcMotor armMotor;
+        DcMotor longArmMotor;
 
         Servo wristServo;
         CRServo intakeServo;
@@ -28,6 +28,10 @@ public class MecanumTeleOp extends LinearOpMode {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setTargetPosition(armMotor.getCurrentPosition());
+
+        longArmMotor = hardwareMap.dcMotor.get("longArmMotor");
+        longArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        longArmMotor.setTargetPosition(armMotor.getCurrentPosition());
 
         // Init Servos
         wristServo = hardwareMap.get(Servo.class, "wristServo");
@@ -80,16 +84,22 @@ public class MecanumTeleOp extends LinearOpMode {
                 wristServo.setPosition(wristServo.getPosition() - 1);
             }
 
-//            if (wristServo.getPosition() > 150) {
-//                wristServo.setPosition(150);
-//            }
-//            if (wristServo.getPosition() < 0) {
-//                wristServo.setPosition(0);
-//            }
+            if (gamepad1.dpad_up) {
+                longArmMotor.setTargetPosition(longArmMotor.getTargetPosition() + 5);
+            }
+
+            if (gamepad2.dpad_down) {
+                longArmMotor.setTargetPosition(longArmMotor.getTargetPosition() - 5);
+            }
 
             ((DcMotorEx) armMotor).setVelocity(2100);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            telemetry.addData("Wrist Servo Position", wristServo.getPosition());
+
+            ((DcMotorEx) longArmMotor).setVelocity(2100);
+            longArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            telemetry.addData("long arm position", longArmMotor.getCurrentPosition());
+            telemetry.addData("long arm target position", longArmMotor.getTargetPosition());
+
         }
     }
 }
