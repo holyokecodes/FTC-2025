@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.modules.Elbow;
+import org.firstinspires.ftc.teamcode.modules.Flipper;
 import org.firstinspires.ftc.teamcode.modules.Lift;
 
 enum Direction {
@@ -28,10 +29,12 @@ public class MecanumTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         GamepadEx controller1 = new GamepadEx(gamepad1);
+        GamepadEx controller2 = new GamepadEx(gamepad2);
 
         DriveTrain driveTrain = new DriveTrain(hardwareMap, controller1);
-        Lift lift = new Lift(hardwareMap, controller1);
+        Lift lift = new Lift(hardwareMap, controller2);
         Elbow elbow = new Elbow(hardwareMap, controller1);
+        Flipper flipper = new Flipper(hardwareMap, controller2);
 
         Direction intakeStatus = Direction.Still;
         CRServo intakeServo;
@@ -54,6 +57,7 @@ public class MecanumTeleOp extends LinearOpMode {
         driveTrain.init();
         lift.init();
         elbow.init();
+        flipper.init();
 
         if (isStopRequested()) return;
 
@@ -62,6 +66,7 @@ public class MecanumTeleOp extends LinearOpMode {
             driveTrain.run();
             lift.run();
             elbow.run();
+            flipper.run();
 
             aButton.readValue();
             bButton.readValue();
