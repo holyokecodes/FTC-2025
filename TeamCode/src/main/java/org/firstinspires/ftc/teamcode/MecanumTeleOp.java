@@ -38,11 +38,11 @@ public class MecanumTeleOp extends LinearOpMode {
 
         Direction intakeStatus = Direction.Still;
         CRServo intakeServo;
-        Servo wristServo;
+
 
         // Init Servos
         intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
-        wristServo = hardwareMap.get(Servo.class, "wristServo");
+
 
         ButtonReader aButton = new ButtonReader(controller1, GamepadKeys.Button.A);
         ButtonReader bButton = new ButtonReader(controller1, GamepadKeys.Button.B);
