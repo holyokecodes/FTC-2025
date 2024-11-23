@@ -6,20 +6,25 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Elbow {
     private final HardwareMap hardwareMap;
     private final GamepadEx gamepadEx;
 
     private Motor armMotor;
 
+    private final Telemetry telemetry;
+
     private TriggerReader leftTrigger;
     private TriggerReader rightTrigger;
 
     private int armMotorTargetPosition = 0;
 
-    public Elbow(HardwareMap hardwareMap, GamepadEx gamepadEx) {
+    public Elbow(HardwareMap hardwareMap, GamepadEx gamepadEx, Telemetry telemetry) {
         this.hardwareMap = hardwareMap;
         this.gamepadEx = gamepadEx;
+        this.telemetry = telemetry;
     }
 
     public void init() {
@@ -49,5 +54,8 @@ public class Elbow {
 
         armMotor.set(0.75);
         armMotor.setTargetPosition(armMotorTargetPosition);
+
+        telemetry.addData("arm position", armMotor.getCurrentPosition());
+        telemetry.addData("arm target position", armMotorTargetPosition);
     }
 }

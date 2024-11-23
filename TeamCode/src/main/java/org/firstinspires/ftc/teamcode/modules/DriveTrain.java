@@ -39,7 +39,7 @@ public class DriveTrain {
     public void run() {
         // Drive code here
         double leftX = -gamepadEx.getLeftX();
-        double leftY = gamepadEx.getLeftY();
+        double leftY = -gamepadEx.getLeftY();
         double rightX = gamepadEx.getRightX();
 
         double robotPower = Math.hypot(leftX, leftY);

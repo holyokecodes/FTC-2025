@@ -15,12 +15,14 @@ import org.firstinspires.ftc.teamcode.modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.modules.Elbow;
 import org.firstinspires.ftc.teamcode.modules.Flipper;
 import org.firstinspires.ftc.teamcode.modules.Lift;
+import org.firstinspires.ftc.teamcode.modules.Wrist;
+import org.firstinspires.ftc.teamcode.modules.Intake;
 
-enum Direction {
-    Still,
-    Intake,
-    Outtake,
-}
+// docked Wrist 0.1 Arm 0
+// above bucket Wrist 0.0 Arm 520
+// above ground Wrist 0.7 Arm 1700
+// on ground Wrist 0.7 Arm 1800
+
 
 @TeleOp
 public class MecanumTeleOp extends LinearOpMode {
@@ -33,24 +35,10 @@ public class MecanumTeleOp extends LinearOpMode {
 
         DriveTrain driveTrain = new DriveTrain(hardwareMap, controller1);
         Lift lift = new Lift(hardwareMap, controller2);
-        Elbow elbow = new Elbow(hardwareMap, controller1);
+        Elbow elbow = new Elbow(hardwareMap, controller1, telemetry);
         Flipper flipper = new Flipper(hardwareMap, controller2);
-
-        Direction intakeStatus = Direction.Still;
-        CRServo intakeServo;
-
-
-        // Init Servos
-        intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
-
-
-        ButtonReader aButton = new ButtonReader(controller1, GamepadKeys.Button.A);
-        ButtonReader bButton = new ButtonReader(controller1, GamepadKeys.Button.B);
-
-        ButtonReader xButton = new ButtonReader(controller1, GamepadKeys.Button.X);
-        ButtonReader leftBumper = new ButtonReader(controller1, GamepadKeys.Button.LEFT_BUMPER);
-        ButtonReader rightBumper = new ButtonReader(controller1, GamepadKeys.Button.RIGHT_BUMPER);
-
+        Wrist wrist = new Wrist(hardwareMap, controller1, telemetry);
+        Intake intake = new Intake(hardwareMap, controller1);
 
         waitForStart();
 
@@ -58,68 +46,18 @@ public class MecanumTeleOp extends LinearOpMode {
         lift.init();
         elbow.init();
         flipper.init();
+        wrist.init();
+        intake.init();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-
             driveTrain.run();
             lift.run();
             elbow.run();
             flipper.run();
-
-            aButton.readValue();
-            bButton.readValue();
-            xButton.readValue();
-
-            rightBumper.readValue();
-            leftBumper.readValue();
-
-
-            // Y toggle slow mode
-            // arm triggers up and down
-            // intake A and B
-            // X is toggle bucket
-            // linear arm go up and down bumpers
-            // dpad is shortcuts
-
-
-
-
-            if (aButton.wasJustReleased()) {
-                if(intakeStatus == Direction.Intake) {
-                    intakeStatus = Direction.Still;
-                } else {
-                    intakeStatus = Direction.Intake;
-                }
-            }
-
-            if (bButton.wasJustReleased()) {
-                if(intakeStatus == Direction.Outtake) {
-                    intakeStatus = Direction.Still;
-                } else {
-                    intakeStatus = Direction.Outtake;
-                }
-            }
-
-            switch (intakeStatus) {
-                case Intake:
-                    intakeServo.setPower(-1);
-                    break;
-                case Outtake:
-                    intakeServo.setPower(1);
-                    break;
-                default:
-                    intakeServo.setPower(0);
-            }
-
-//            if (armMotor.getCurrentPosition() < 600) {
-//                wristServo.setPosition(60);
-//            } else if (armMotor.getCurrentPosition() > 600 && armMotor.getCurrentPosition() < 1200) {
-//                wristServo.setPosition(0);
-//            } else if (armMotor.getCurrentPosition() > 1200) {
-//                wristServo.setPosition(180);
-//            }
+            wrist.run();
+            intake.run();
 
             telemetry.update();
 
