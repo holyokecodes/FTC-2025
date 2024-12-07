@@ -53,6 +53,12 @@ public class Elbow {
         }
 
         armMotor.set(0.75);
+        if(armMotorTargetPosition > 1800) {
+            armMotorTargetPosition = 1800;
+        }
+        if(armMotorTargetPosition < 0) {
+            armMotorTargetPosition = 0;
+        }
         armMotor.setTargetPosition(armMotorTargetPosition);
 
         telemetry.addData("arm position", armMotor.getCurrentPosition());

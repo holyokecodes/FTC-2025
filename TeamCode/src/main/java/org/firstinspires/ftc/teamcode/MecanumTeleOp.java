@@ -1,22 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.arcrobotics.ftclib.gamepad.ButtonReader;
+
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.arcrobotics.ftclib.gamepad.TriggerReader;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.modules.Elbow;
 import org.firstinspires.ftc.teamcode.modules.Flipper;
 import org.firstinspires.ftc.teamcode.modules.Lift;
 import org.firstinspires.ftc.teamcode.modules.Wrist;
-import org.firstinspires.ftc.teamcode.modules.Intake;
+import org.firstinspires.ftc.teamcode.modules.Chopsticks;
+//import org.firstinspires.ftc.teamcode.modules.Intake;
 
 // docked Wrist 0.1 Arm 0
 // above bucket Wrist 0.0 Arm 520
@@ -38,7 +33,8 @@ public class MecanumTeleOp extends LinearOpMode {
         Elbow elbow = new Elbow(hardwareMap, controller1, telemetry);
         Flipper flipper = new Flipper(hardwareMap, controller2);
         Wrist wrist = new Wrist(hardwareMap, controller1, telemetry);
-        Intake intake = new Intake(hardwareMap, controller1);
+        Chopsticks chopsticks = new Chopsticks(hardwareMap,controller1);
+//        Intake intake = new Intake(hardwareMap, controller1);
 
         waitForStart();
 
@@ -47,7 +43,8 @@ public class MecanumTeleOp extends LinearOpMode {
         elbow.init();
         flipper.init();
         wrist.init();
-        intake.init();
+        chopsticks.init();
+//        intake.init();
 
         if (isStopRequested()) return;
 
@@ -57,7 +54,8 @@ public class MecanumTeleOp extends LinearOpMode {
             elbow.run();
             flipper.run();
             wrist.run();
-            intake.run();
+            chopsticks.run();
+//            intake.run();
 
             telemetry.update();
 
