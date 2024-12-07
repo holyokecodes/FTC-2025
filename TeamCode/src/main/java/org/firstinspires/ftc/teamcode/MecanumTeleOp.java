@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.modules.DriveTrain;
 import org.firstinspires.ftc.teamcode.modules.Elbow;
 import org.firstinspires.ftc.teamcode.modules.Flipper;
 import org.firstinspires.ftc.teamcode.modules.Lift;
-import org.firstinspires.ftc.teamcode.modules.Wrist;
+//import org.firstinspires.ftc.teamcode.modules.Wrist;
 import org.firstinspires.ftc.teamcode.modules.Chopsticks;
 //import org.firstinspires.ftc.teamcode.modules.Intake;
 
@@ -32,7 +32,7 @@ public class MecanumTeleOp extends LinearOpMode {
         Lift lift = new Lift(hardwareMap, controller2);
         Elbow elbow = new Elbow(hardwareMap, controller1, telemetry);
         Flipper flipper = new Flipper(hardwareMap, controller2);
-        Wrist wrist = new Wrist(hardwareMap, controller1, telemetry);
+//        Wrist wrist = new Wrist(hardwareMap, controller1, telemetry);
         Chopsticks chopsticks = new Chopsticks(hardwareMap,controller1);
 //        Intake intake = new Intake(hardwareMap, controller1);
 
@@ -42,7 +42,7 @@ public class MecanumTeleOp extends LinearOpMode {
         lift.init();
         elbow.init();
         flipper.init();
-        wrist.init();
+//        wrist.init();
         chopsticks.init();
 //        intake.init();
 
@@ -53,7 +53,7 @@ public class MecanumTeleOp extends LinearOpMode {
             lift.run();
             elbow.run();
             flipper.run();
-            wrist.run();
+//            wrist.run();
             chopsticks.run();
 //            intake.run();
 

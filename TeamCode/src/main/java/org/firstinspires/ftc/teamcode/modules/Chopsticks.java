@@ -15,7 +15,7 @@ public class Chopsticks {
     private Servo chopstick2;
     private ButtonReader bButton;
 
-    private boolean open = false;
+    private boolean open = true;
 
     public Chopsticks(HardwareMap hardwareMap, GamepadEx gamepadEx) {
         this.hardwareMap = hardwareMap;
@@ -35,8 +35,8 @@ public class Chopsticks {
             open = !open;
         }
 
-        chopstick1.setPosition(open? 0 : 180);
-        chopstick2.setPosition(open? 0 : 180);
+        chopstick1.setPosition(open? 1 : 0);
+        chopstick2.setPosition(open? 0 : .75);
     }
 
 }
