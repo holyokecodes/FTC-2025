@@ -52,17 +52,6 @@ public class Elbow {
             armMotorTargetPosition -= 5;
         }
 
-
-
-
-
-
-
-
-
-
-
-
         armMotor.set(0.75);
         if(armMotorTargetPosition > 1960) {
             armMotorTargetPosition = 1960;
