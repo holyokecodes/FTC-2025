@@ -14,7 +14,7 @@ public class Flipper {
 
     private ButtonReader xButton;
 
-    boolean flipped = true;
+    boolean flipped = false;
 
     public Flipper(HardwareMap hardwareMap, GamepadEx gamepadEx) {
         this.hardwareMap = hardwareMap;
