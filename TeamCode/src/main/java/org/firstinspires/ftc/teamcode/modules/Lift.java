@@ -37,17 +37,17 @@ public class Lift {
     public void run() {
         // Drive code here
         if (dPadUp.isDown()) {
-            liftMotorPosition -= 25;
+            liftMotorPosition = -3470;
         }
 
         if(dPadDown.isDown()) {
-            liftMotorPosition += 25;
+            liftMotorPosition = 0;
         }
 
         if (liftMotorPosition > 0) {
             liftMotorPosition = 0;
-        } else if (liftMotorPosition < -11500) {
-            liftMotorPosition = -11500;
+        } else if (liftMotorPosition < -3470) {
+            liftMotorPosition = -3470;
         }
 
         liftMotor.set(0.5);
