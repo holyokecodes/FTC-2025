@@ -24,6 +24,7 @@ public class DriveTrain {
     private IMU imu;
 
     private ButtonReader yButton;
+    private ButtonReader startButton;
 
     private boolean isSlowMode = false;
 
@@ -39,9 +40,9 @@ public class DriveTrain {
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-//
-//        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-//        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -49,6 +50,7 @@ public class DriveTrain {
         imu.initialize(parameters);
 
         yButton = new ButtonReader(gamepadEx, GamepadKeys.Button.Y);
+        startButton = new ButtonReader(gamepadEx, GamepadKeys.Button.START);
     }
 
     public void run() {
@@ -61,16 +63,16 @@ public class DriveTrain {
         double speedMultiplier = isSlowMode ? 0.25 : 1;
 
 
-        double y = -gamepadEx.getLeftY(); // Remember, Y stick value is reversed
+        double y = gamepadEx.getLeftY(); // Remember, Y stick value is reversed
         double x = gamepadEx.getLeftX();
-        double rx = gamepadEx.getRightX();
+        double rx = -gamepadEx.getRightX();
 
         // This button choice was made so that it is hard to hit on accident,
         // it can be freely changed based on preference.
         // The equivalent button is start on Xbox-style controllers.
-//        if (gamepadEx.options) {
-//            imu.resetYaw();
-//        }
+        if (startButton.wasJustPressed()) {
+            imu.resetYaw();
+        }
 
         double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
