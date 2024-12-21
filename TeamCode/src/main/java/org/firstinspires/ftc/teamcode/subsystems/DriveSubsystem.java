@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import java.util.function.DoubleSupplier;
 
 public class DriveSubsystem extends SubsystemBase {
-    private MecanumDrive drive;
-    private DoubleSupplier xPower, yPower, rotPower;
+    private final MecanumDrive drive;
+    private final DoubleSupplier xPower, yPower, rotPower;
     public DriveSubsystem(Motor frontLeftMotor, Motor frontRightMotor, Motor backLeftMotor, Motor backRightMotor, GamepadEx gamepad) {
         xPower = gamepad::getLeftX;
         yPower = gamepad::getLeftY;
@@ -21,6 +21,6 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void drive() {
-        drive.driveRobotCentric(xPower.getAsDouble(), yPower.getAsDouble(), rotPower.getAsDouble());
+        drive.driveRobotCentric(xPower.getAsDouble(), yPower.getAsDouble(), -rotPower.getAsDouble());
     }
 }
