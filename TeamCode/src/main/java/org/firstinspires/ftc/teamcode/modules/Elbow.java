@@ -33,7 +33,7 @@ public class Elbow {
 
     public void init() {
         // Initialization code here
-        armMotor = new Motor(hardwareMap, "armMotor", Motor.GoBILDA.RPM_312);
+        armMotor = new Motor(hardwareMap, "armMotor");
 
         armMotor.setRunMode(Motor.RunMode.PositionControl);
         armMotor.setPositionCoefficient(0.05);
@@ -54,7 +54,7 @@ public class Elbow {
         }
 
         if(dPadUp.isDown()) {
-            armMotorTargetPosition = 850;
+            armMotorTargetPosition = 832;
         }
 
         if(dPadRight.isDown()) {
@@ -62,7 +62,7 @@ public class Elbow {
         }
 
         // WHY IS IT RUNNING AT FULL SPEED?
-        armMotor.set(0.75);
+        armMotor.set(0.05);
         armMotor.setTargetPosition(armMotorTargetPosition);
 
         telemetry.addData("arm position", armMotor.getCurrentPosition());
