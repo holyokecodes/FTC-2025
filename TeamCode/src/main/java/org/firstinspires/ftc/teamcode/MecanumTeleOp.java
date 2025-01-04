@@ -32,9 +32,7 @@ public class MecanumTeleOp extends LinearOpMode {
         Lift lift = new Lift(hardwareMap, controller2);
         Elbow elbow = new Elbow(hardwareMap, controller1, telemetry);
         Flipper flipper = new Flipper(hardwareMap, controller2);
-//        Wrist wrist = new Wrist(hardwareMap, controller1, telemetry);
         Chopsticks chopsticks = new Chopsticks(hardwareMap,controller1);
-//        Intake intake = new Intake(hardwareMap, controller1);
 
         waitForStart();
 
@@ -42,9 +40,7 @@ public class MecanumTeleOp extends LinearOpMode {
         lift.init();
         elbow.init();
         flipper.init();
-//        wrist.init();
         chopsticks.init();
-//        intake.init();
 
         if (isStopRequested()) return;
 
@@ -53,9 +49,7 @@ public class MecanumTeleOp extends LinearOpMode {
             lift.run();
             elbow.run();
             flipper.run();
-//            wrist.run();
             chopsticks.run();
-//            intake.run();
 
             telemetry.update();
 
