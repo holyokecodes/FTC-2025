@@ -26,7 +26,7 @@ public class Lift {
         liftMotor = new Motor(hardwareMap, "liftMotor");
         liftMotor.setRunMode(Motor.RunMode.PositionControl);
         liftMotor.setPositionCoefficient(0.05);
-        liftMotor.setPositionTolerance(3);
+        liftMotor.setPositionTolerance(10);
         liftMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         liftMotor.resetEncoder();
 
@@ -37,11 +37,11 @@ public class Lift {
     public void run() {
         // Drive code here
         if (dPadUp.isDown()) {
-            liftMotorPosition = -3470;
+            liftMotorPosition -= 5;
         }
 
         if(dPadDown.isDown()) {
-            liftMotorPosition = 0;
+            liftMotorPosition += 5;
         }
 
         if (liftMotorPosition > 0) {

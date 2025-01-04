@@ -7,12 +7,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-enum Position {
-    Open,
-    Closed,
-    Half
-}
-
 public class Chopsticks {
 
     private final HardwareMap hardwareMap;
@@ -20,10 +14,9 @@ public class Chopsticks {
 
     private Servo chopstick1;
     private Servo chopstick2;
-    private ButtonReader aButton;
+    private ButtonReader xButton;
+    private ButtonReader yButton;
     private ButtonReader bButton;
-
-    private Position position = Position.Open;
 
     public Chopsticks(HardwareMap hardwareMap, GamepadEx gamepadEx) {
         this.hardwareMap = hardwareMap;
@@ -33,43 +26,29 @@ public class Chopsticks {
     public void init() {
         chopstick1 = hardwareMap.get(Servo.class, "chopstick1");
         chopstick2 = hardwareMap.get(Servo.class, "chopstick2");
+        xButton = new ButtonReader(this.gamepadEx, GamepadKeys.Button.X);
+        yButton = new ButtonReader(this.gamepadEx, GamepadKeys.Button.Y);
         bButton = new ButtonReader(this.gamepadEx, GamepadKeys.Button.B);
-        aButton = new ButtonReader(this.gamepadEx, GamepadKeys.Button.A);
-
     }
 
     public void run() {
+        xButton.readValue();
+        yButton.readValue();
         bButton.readValue();
+
+        if(xButton.wasJustReleased()) {
+            chopstick1.setPosition(1);
+            chopstick2.setPosition(0);
+        }
+
+        if(yButton.wasJustReleased()) {
+            chopstick1.setPosition(0.1);
+            chopstick2.setPosition(0.65);
+        }
+
         if (bButton.wasJustReleased()) {
-            if(position != Position.Closed) {
-                position = Position.Closed;
-            } else {
-                position = Position.Open;
-            }
-        }
-
-        if(aButton.wasJustReleased()) {
-            if(position != Position.Half) {
-                position = Position.Half;
-            } else {
-                position = Position.Closed;
-            }
-        }
-
-
-        switch(position) {
-            case Open:
-                chopstick1.setPosition(1);
-                chopstick2.setPosition(0);
-                break;
-            case Closed:
-                chopstick1.setPosition(0);
-                chopstick2.setPosition(0.75);
-                break;
-            case Half:
-                chopstick1.setPosition(0.1);
-                chopstick2.setPosition(0.65);
-                break;
+            chopstick1.setPosition(0);
+            chopstick2.setPosition(0.75);
         }
     }
 }

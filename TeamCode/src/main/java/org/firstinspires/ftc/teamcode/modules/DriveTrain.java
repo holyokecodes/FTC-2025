@@ -23,7 +23,7 @@ public class DriveTrain {
 
     private IMU imu;
 
-    private ButtonReader yButton;
+    private ButtonReader leftStickButton;
     private ButtonReader startButton;
 
     private boolean isSlowMode = false;
@@ -49,14 +49,14 @@ public class DriveTrain {
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
         imu.initialize(parameters);
 
-        yButton = new ButtonReader(gamepadEx, GamepadKeys.Button.Y);
+        leftStickButton = new ButtonReader(gamepadEx, GamepadKeys.Button.LEFT_STICK_BUTTON);
         startButton = new ButtonReader(gamepadEx, GamepadKeys.Button.START);
     }
 
     public void run() {
 
-        yButton.readValue();
-        if (yButton.wasJustReleased()) {
+        leftStickButton.readValue();
+        if (leftStickButton.wasJustReleased()) {
             isSlowMode = !isSlowMode;
         }
 
