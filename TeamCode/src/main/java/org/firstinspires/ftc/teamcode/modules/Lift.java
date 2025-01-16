@@ -37,11 +37,11 @@ public class Lift {
     public void run() {
         // Drive code here
         if (dPadUp.isDown()) {
-            liftMotorPosition -= 5;
+            liftMotorPosition -= 15;
         }
 
         if(dPadDown.isDown()) {
-            liftMotorPosition += 5;
+            liftMotorPosition += 15;
         }
 
         if (liftMotorPosition > 0) {

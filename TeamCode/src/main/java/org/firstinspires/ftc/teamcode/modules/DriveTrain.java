@@ -60,7 +60,7 @@ public class DriveTrain {
             isSlowMode = !isSlowMode;
         }
 
-        double speedMultiplier = isSlowMode ? 0.25 : 1;
+        double speedMultiplier = isSlowMode ? 0.25 : 0.87;
 
 
         double y = gamepadEx.getLeftY(); // Remember, Y stick value is reversed

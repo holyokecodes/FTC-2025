@@ -50,11 +50,11 @@ public class Elbow {
         rightBumper.readValue();
 
         if(leftBumper.isDown()) {
-            armMotorTargetPosition += 5;
+            armMotorTargetPosition += 15;
         }
 
         if(rightBumper.isDown()) {
-            armMotorTargetPosition -= 5;
+            armMotorTargetPosition -=  15;
         }
 
         if(armMotorTargetPosition < 0) {
