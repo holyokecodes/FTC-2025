@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 @Autonomous
 
-public class AutoOp extends LinearOpMode{
+public class FourRight extends LinearOpMode{
 
     MecanumDrive driveBase;
 
@@ -26,17 +26,15 @@ public class AutoOp extends LinearOpMode{
 
         driveBase = new MecanumDrive (frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
 
-
-
-
         waitForStart();
         time.reset();
 
-        strafeLeft(0.5);
+        strafeRight(0.75);
+        strafeBack(0.2);
 
         requestOpModeStop();
-
     }
+
     public void driveFoward(double time) {
 
         double strafeSpeed = 1;
@@ -45,31 +43,34 @@ public class AutoOp extends LinearOpMode{
         double heading = 0;
 
         drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
-
     }
 
     public void strafeLeft(double time) {
-
         double strafeSpeed = 0;
         double fowardSpeed = -1;
         double rotateSpeed = 0;
         double heading = 0;
 
         drive(strafeSpeed ,fowardSpeed, rotateSpeed, heading, time);
-
     }
 
     public void strafeRight(double time) {
-
         double strafeSpeed = 0;
         double fowardSpeed = 1;
         double rotateSpeed = 0;
         double heading = 0;
 
         drive(strafeSpeed ,fowardSpeed, rotateSpeed, heading, time);
-
     }
 
+    public void strafeBack(double time) {
+        double strafeSpeed = 0;
+        double fowardSpeed = -1;
+        double rotateSpeed = 0;
+        double heading = 0;
+
+        drive(strafeSpeed ,fowardSpeed, rotateSpeed, heading, time);
+    }
 
 
     public void drive(double strafeSpeed, double fowardSpeed, double rotateSpeed, double heading, double time ) {
@@ -80,11 +81,7 @@ public class AutoOp extends LinearOpMode{
 
             // this. is only needed if a parameter has the same name
             driveBase.driveFieldCentric(strafeSpeed, fowardSpeed, rotateSpeed,heading, false);
-
         }
-
     }
-
-
 }
 
