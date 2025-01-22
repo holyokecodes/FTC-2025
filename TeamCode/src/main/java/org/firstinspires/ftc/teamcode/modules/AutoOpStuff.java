@@ -1,22 +1,22 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.modules;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 
 
-@Autonomous
-
-public class FourRight extends LinearOpMode{
-
+public class AutoOpStuff {
+    HardwareMap hardwareMap;
     MecanumDrive driveBase;
 
+    public AutoOpStuff(HardwareMap hardwareMap) {
+        this.hardwareMap = hardwareMap;
+    }
 
-    @Override
-    public void runOpMode() {
-
+    public void init() {
         ElapsedTime time = new ElapsedTime();
 
         Motor frontLeftMotor = new Motor (hardwareMap, "frontLeftMotor");
@@ -25,15 +25,9 @@ public class FourRight extends LinearOpMode{
         Motor backRightMotor = new Motor (hardwareMap, "backRightMotor");
 
         driveBase = new MecanumDrive (frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
-
-        waitForStart();
-        time.reset();
-
-        strafeRight(1.5);
-        strafeBack(0.2);
-
-        requestOpModeStop();
     }
+
+
 
     public void driveFoward(double time) {
 
@@ -83,5 +77,5 @@ public class FourRight extends LinearOpMode{
             driveBase.driveFieldCentric(strafeSpeed, fowardSpeed, rotateSpeed,heading, false);
         }
     }
-}
 
+}

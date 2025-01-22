@@ -29,7 +29,7 @@ public class FiveRight extends LinearOpMode{
         waitForStart();
         time.reset();
 
-        strafeRight(1);
+        strafeRight(1.8);
         strafeBack(0.2);
 
         requestOpModeStop();

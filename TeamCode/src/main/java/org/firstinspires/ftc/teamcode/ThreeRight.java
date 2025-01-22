@@ -29,7 +29,8 @@ public class ThreeRight extends LinearOpMode{
         waitForStart();
         time.reset();
 
-        strafeRight(0.5);
+        strafeRight(1);
+
         strafeBack(0.2);
 
         requestOpModeStop();
