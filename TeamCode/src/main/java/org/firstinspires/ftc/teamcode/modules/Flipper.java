@@ -33,6 +33,6 @@ public class Flipper {
             flipped = !flipped;
         }
 
-        flipperServo.setPosition(flipped? 1 : 0);
+        flipperServo.setPosition(flipped? 0.6 : 0);
     }
 }
