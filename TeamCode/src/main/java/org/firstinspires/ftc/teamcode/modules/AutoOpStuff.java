@@ -1,17 +1,23 @@
 package org.firstinspires.ftc.teamcode.modules;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 
 public class AutoOpStuff {
     HardwareMap hardwareMap;
     MecanumDrive driveBase;
     LinearOpMode opMode;
-
+    IMU imu;
+    YawPitchRollAngles robotOrientation;
     public AutoOpStuff(HardwareMap hardwareMap, LinearOpMode opMode) {
         this.hardwareMap = hardwareMap;
         this.opMode = opMode;
@@ -26,6 +32,12 @@ public class AutoOpStuff {
         Motor backRightMotor = new Motor (hardwareMap, "backRightMotor");
 
         driveBase = new MecanumDrive (frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
+
+        imu = hardwareMap.get(IMU.class, "imu");
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP, RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
+        imu.initialize(parameters);
+
+        robotOrientation = imu.getRobotYawPitchRollAngles();
     }
 
 
@@ -46,7 +58,8 @@ public class AutoOpStuff {
         double rotateSpeed = 0;
         double heading = 0;
 
-        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);    }
+        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
+    }
 
     public void strafeRight(double time) {
         double strafeSpeed = 0;
@@ -63,7 +76,9 @@ public class AutoOpStuff {
         double rotateSpeed = 0;
         double heading = 0;
 
-        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);    }
+        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
+    }
+
 
 
     public void drive(double strafeSpeed, double fowardSpeed, double rotateSpeed, double heading, double time ) {
@@ -76,4 +91,11 @@ public class AutoOpStuff {
             driveBase.driveFieldCentric(strafeSpeed, fowardSpeed, rotateSpeed,heading, false);
         }
     }
+    public void rotate(double degrees) {
+        double startYaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
+        while(robotOrientation.getYaw(AngleUnit.DEGREES) < startYaw + degrees) {
+            drive(0, 0, 1, 0, 0);
+        }
+    }
+
 }
