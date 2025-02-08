@@ -93,8 +93,16 @@ public class AutoOpStuff {
     }
     public void rotate(double degrees) {
         double startYaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
+
+
+
         while(robotOrientation.getYaw(AngleUnit.DEGREES) < startYaw + degrees) {
-            drive(0, 0, 1, 0, 0);
+            robotOrientation = imu.getRobotYawPitchRollAngles();
+            this.opMode.telemetry.addData("Yaw", robotOrientation.getYaw(AngleUnit.DEGREES));
+            this.opMode.telemetry.addData("Pitch", robotOrientation.getPitch(AngleUnit.DEGREES));
+            this.opMode.telemetry.addData("Roll", robotOrientation.getRoll(AngleUnit.DEGREES));
+            this.opMode.telemetry.update();
+            driveBase.driveFieldCentric(0, 0, 0.4,0, false);
         }
     }
 
