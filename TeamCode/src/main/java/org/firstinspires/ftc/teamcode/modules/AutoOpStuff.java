@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.modules;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
@@ -9,9 +10,11 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 public class AutoOpStuff {
     HardwareMap hardwareMap;
     MecanumDrive driveBase;
+    LinearOpMode opMode;
 
-    public AutoOpStuff(HardwareMap hardwareMap) {
+    public AutoOpStuff(HardwareMap hardwareMap, LinearOpMode opMode) {
         this.hardwareMap = hardwareMap;
+        this.opMode = opMode;
     }
 
     public void init() {
@@ -27,47 +30,47 @@ public class AutoOpStuff {
 
 
 
-    public void driveFoward(double runTime, boolean opActive,double time) {
+    public void driveFoward(double time) {
 
         double strafeSpeed = 1;
         double fowardSpeed = 0;
         double rotateSpeed = 0;
         double heading = 0;
 
-        drive(runTime, opActive, strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
+        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
     }
 
-    public void strafeLeft(double runTime, boolean opActive,double time) {
+    public void strafeLeft(double time) {
         double strafeSpeed = 0;
         double fowardSpeed = -1;
         double rotateSpeed = 0;
         double heading = 0;
 
-        drive(runTime, opActive, strafeSpeed, fowardSpeed, rotateSpeed, heading, time);    }
+        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);    }
 
-    public void strafeRight(double runTime, boolean opActive, double time) {
+    public void strafeRight(double time) {
         double strafeSpeed = 0;
         double fowardSpeed = 1;
         double rotateSpeed = 0;
         double heading = 0;
 
-        drive(runTime, opActive, strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
+        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
     }
 
-    public void strafeBack(double runTime, boolean opActive,double time) {
+    public void strafeBack(double time) {
         double strafeSpeed = 0;
         double fowardSpeed = -1;
         double rotateSpeed = 0;
         double heading = 0;
 
-        drive(runTime, opActive, strafeSpeed, fowardSpeed, rotateSpeed, heading, time);    }
+        drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);    }
 
 
-    public void drive(double runTime, boolean opActive, double strafeSpeed, double fowardSpeed, double rotateSpeed, double heading, double time ) {
+    public void drive(double strafeSpeed, double fowardSpeed, double rotateSpeed, double heading, double time ) {
 
-        double startTime = runTime;
+        double startTime = opMode.getRuntime();
 
-        while(runTime - startTime < time && opActive) {
+        while(opMode.getRuntime() - startTime < time && opMode.opModeIsActive()) {
 
             // this. is only needed if a parameter has the same name
             driveBase.driveFieldCentric(strafeSpeed, fowardSpeed, rotateSpeed,heading, false);
