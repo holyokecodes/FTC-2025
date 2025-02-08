@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.modules.AutoOpStuff;
 
 @Autonomous
-public class FourRight extends LinearOpMode {
+public class TwoRight extends LinearOpMode {
 
     @Override
-   public void runOpMode() {
+    public void runOpMode() {
         ElapsedTime time = new ElapsedTime();
 
         AutoOpStuff autoOpStuff = new AutoOpStuff(hardwareMap, this);
@@ -20,6 +20,6 @@ public class FourRight extends LinearOpMode {
 
         time.reset();
 
-        autoOpStuff.strafeRight(1.35);
+        autoOpStuff.strafeRight(0.85);
     }
 }
