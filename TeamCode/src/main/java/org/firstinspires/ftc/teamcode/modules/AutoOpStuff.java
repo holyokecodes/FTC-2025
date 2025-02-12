@@ -38,6 +38,7 @@ public class AutoOpStuff {
         imu.initialize(parameters);
 
         robotOrientation = imu.getRobotYawPitchRollAngles();
+        this.imu.resetYaw();
     }
 
 
@@ -70,7 +71,7 @@ public class AutoOpStuff {
         drive(strafeSpeed, fowardSpeed, rotateSpeed, heading, time);
     }
 
-    public void strafeBack(double time) {
+    public void driveBack(double time) {
         double strafeSpeed = 0;
         double fowardSpeed = -1;
         double rotateSpeed = 0;
@@ -94,7 +95,7 @@ public class AutoOpStuff {
     public void rotate(double degrees) {
         double startYaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
 
-
+        this.imu.resetYaw();
 
         while(robotOrientation.getYaw(AngleUnit.DEGREES) < startYaw + degrees) {
             robotOrientation = imu.getRobotYawPitchRollAngles();
@@ -104,6 +105,10 @@ public class AutoOpStuff {
             this.opMode.telemetry.update();
             driveBase.driveFieldCentric(0, 0, 0.4,0, false);
         }
+    }
+
+    public void wait_a_sec(double time) {
+        while(opMode.getRuntime() - time < time && opMode.opModeIsActive()) {}
     }
 
 }
