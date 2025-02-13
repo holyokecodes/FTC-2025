@@ -22,11 +22,11 @@ public class score extends LinearOpMode {
 
         autoOpStuff.rotate(90);
 
-        autoOpStuff.wait_a_sec(0.5);
+        autoOpStuff.wait_a_sec(2);
 
         autoOpStuff.driveFoward(0.5);
 
-        autoOpStuff.wait_a_sec(0.5);
+        autoOpStuff.wait_a_sec(2);
 
         autoOpStuff.rotate(90);
     }

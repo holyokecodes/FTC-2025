@@ -38,7 +38,7 @@ public class AutoOpStuff {
         imu.initialize(parameters);
 
         robotOrientation = imu.getRobotYawPitchRollAngles();
-        this.imu.resetYaw();
+        imu.resetYaw();
     }
 
 
@@ -93,9 +93,9 @@ public class AutoOpStuff {
         }
     }
     public void rotate(double degrees) {
-        double startYaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
+        imu.resetYaw();
 
-        this.imu.resetYaw();
+        double startYaw   = robotOrientation.getYaw(AngleUnit.DEGREES);
 
         while(robotOrientation.getYaw(AngleUnit.DEGREES) < startYaw + degrees) {
             robotOrientation = imu.getRobotYawPitchRollAngles();
@@ -108,7 +108,10 @@ public class AutoOpStuff {
     }
 
     public void wait_a_sec(double time) {
-        while(opMode.getRuntime() - time < time && opMode.opModeIsActive()) {}
+        double startTime = opMode.getRuntime();
+        while(opMode.getRuntime() - startTime < time && opMode.opModeIsActive()) {
+            driveBase.driveFieldCentric(0, 0, 0, 0, false);
+        }
     }
 
 }
